@@ -4,9 +4,9 @@
 
 In two action dimensions, the local reverse relation remains approximately first-order odd:
 
-$$
+```math
 E_y(-u)\approx-E_y(u),
-$$
+```
 
 and the effects of the two joints are approximately additive to first order. At second order, however, a cross term $u_1u_2$ appears. Axis-only actions make this term identically zero, so no number of additional axis-only samples can identify it. The experiment demonstrates both the value and the identifiability boundary of the candidate structure.
 
@@ -14,9 +14,9 @@ and the effects of the two joints are approximately additive to first order. At 
 
 The second link is oriented by $q_1+q_2$. When both joints move, its angular increment is $u_1+u_2$, whose quadratic expansion contains
 
-$$
+```math
 (u_1+u_2)^2=u_1^2+2u_1u_2+u_2^2.
-$$
+```
 
 Separate observations of $(u_1,0)$ and $(0,u_2)$ can constrain the square terms but provide no supervision for $u_1u_2$. A small number of joint actions activates this missing direction.
 

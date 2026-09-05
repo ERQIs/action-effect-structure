@@ -6,17 +6,17 @@ This experiment asks whether a model that observes only positive actions of a on
 
 The arm endpoint moves on the unit circle:
 
-$$
+```math
 y(q)=(\cos q,\sin q),
 \qquad
 q^+=q+u.
-$$
+```
 
 The training data form one continuous trajectory and contain only $u>0$. The input is $(y_t,u_t)$ and the supervised target is
 
-$$
+```math
 e_t=y_{t+1}-y_t.
-$$
+```
 
 Negative actions are queried only at test time and are never added to training.
 

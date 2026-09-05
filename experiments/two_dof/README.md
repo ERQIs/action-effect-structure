@@ -6,21 +6,21 @@ This is the minimal two-dimensional extension of the one-joint experiment. It us
 
 The joint state is $q=(q_1,q_2)$. The observation contains the planar elbow and endpoint coordinates:
 
-$$
+```math
 y(q)=(x_{\mathrm{elbow}},y_{\mathrm{elbow}},x_{\mathrm{tip}},y_{\mathrm{tip}})\in\mathbb R^4.
-$$
+```
 
 An action is a short-horizon joint displacement, equivalently an integrated velocity command over a fixed interval:
 
-$$
+```math
 u=(u_1,u_2),\qquad q^+=q+u.
-$$
+```
 
 The learned forward map remains
 
-$$
+```math
 (y_t,u_t)\longmapsto e_t=y_{t+1}-y_t.
-$$
+```
 
 ## Interaction conditions
 
@@ -33,12 +33,12 @@ Tests query in-distribution positive axis actions, unseen negative axis actions,
 
 The free and first-order models match the one-DoF experiment. The corrected model is
 
-$$
+```math
 \hat E(y,u)=J_\theta(y)u
 +H_{11,\theta}(y)u_1^2
 +H_{12,\theta}(y)u_1u_2
 +H_{22,\theta}(y)u_2^2.
-$$
+```
 
 Axis-only actions always have $u_1u_2=0$, so they cannot identify $H_{12}$ regardless of how many such transitions are collected.
 

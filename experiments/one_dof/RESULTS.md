@@ -4,9 +4,9 @@
 
 The visual state of the one-joint arm is
 
-$$
+```math
 y(q)=(\cos q,\sin q).
-$$
+```
 
 Training data come from one continuous trajectory containing only positive actions. Models use $(y_t,u_t)$ to predict $e_t=y_{t+1}-y_t$, and are then evaluated on negative actions that never occur in training and on one-step target control. The default local action radius is $\rho=0.2$ rad. Every reported value aggregates five random seeds.
 
@@ -40,9 +40,9 @@ The prediction gain transfers only partially to control. Mean negative-target er
 
 The result does not support the simple hypothesis that imposing reverse odd symmetry alone is sufficient. The free network already receives a continuous action input and carries its own smooth interpolation bias. Moreover, a hard first-order model omits the even second-order term in
 
-$$
+```math
 E_y(u)=J(y)u+O(u^2).
-$$
+```
 
 Negating the positive-action effect therefore cannot exactly recover the negative-action effect. Allowing $H(y)u^2$ lets positive-action data identify this curvature. The useful prior in this setting is better described as local low-order action-effect structure than as one isolated symmetry rule.
 

@@ -11,9 +11,9 @@ This proposal asks: **Under limited physical interaction, which local action–e
 
 As a first candidate hypothesis, the proposal examines whether short-horizon, small-action effects can be decomposed into a shared state-dependent first-order component and learnable higher-order deviations:
 
-$$
+```math
 E_y(u)=J(y)u+R_y(u).
-$$
+```
 
 This hypothesis assigns part of the relation among actions to model structure while learning its state-dependent coefficients and deviations from experience. Preliminary experiments show that a purely first-order relation is insufficient at finite action magnitudes. With a second-order correction, prediction error on unseen negative actions falls by approximately 134× in a one-DoF arm. In a two-DoF arm, axis-only actions cannot identify the $u_1u_2$ cross term; adding approximately 10% joint actions within the same interaction budget reduces prediction error on positive joint actions by approximately 19.1×. The next stage will test whether this advantage persists with learned visual representations, multiple viewpoints and embodiments, realistic dynamics, and continual interaction on physical robots.
 
@@ -25,9 +25,9 @@ This hypothesis assigns part of the relation among actions to model structure wh
 
 Let an embodied system derive a control representation from observation history and available internal state:
 
-$$
+```math
 y_t=\phi(o_{t-k:t},s_t).
-$$
+```
 
 After executing a continuous action $u_t$, the system receives a new observation. Local goal-directed control selects an action from the current representation $y_t$ and goal $g$ so that the next observation moves toward the goal. For a new robot, an uncalibrated viewpoint, a compliant body, or a changed actuation system, this mapping must be identified and continually updated through interaction.
 
@@ -88,17 +88,17 @@ The first candidate physical prior is: **At suitable temporal, action, and repre
 
 Let $y$ be the current control representation and $u$ a small control perturbation around the current operating point over a short interval. After subtracting predictable zero-action drift, define the action effect as
 
-$$
+```math
 E_y(u)
 =
 \mathbb E[y_{t+1}-y_t\mid y_t=y,u_t=u]
 -
 \mathbb E[y_{t+1}-y_t\mid y_t=y,u_t=0].
-$$
+```
 
 If the local dynamics, actuation interface, and observation representation are sufficiently smooth in $u$, then
 
-$$
+```math
 E_y(u)
 =
 J(y)u
@@ -106,17 +106,17 @@ J(y)u
 \frac12\mathcal H(y)[u,u]
 +
 O(\|u\|^3).
-$$
+```
 
 The first-order term implies three reusable approximate relations:
 
-$$
+```math
 E_y(-u)\approx-E_y(u),
 \qquad
 E_y(cu)\approx cE_y(u),
 \qquad
 E_y(u+v)\approx E_y(u)+E_y(v).
-$$
+```
 
 Second- and higher-order terms describe systematic deviations as action magnitude, state, and interaction mode change. Nonsmooth events such as contact switching and occlusion mark boundaries of the local structure or its representation.
 
@@ -126,9 +126,9 @@ An unconstrained model estimates the full function $(y,u)\mapsto E$ from data. A
 
 The structure also determines which experience is informative. An action direction provides one projected constraint; multiple independent directions jointly identify a Jacobian; higher-order interactions require actions that activate the corresponding monomials. For example, a two-dimensional second-order model contains
 
-$$
+```math
 H_{12}(y)u_1u_2.
-$$
+```
 
 This term is always zero under $(u_1,0)$ and $(0,u_2)$. At least some joint actions are therefore required to identify it. Architecture reuses the candidate relation, while experience estimates its coefficients and supplies directions absent from existing data.
 
@@ -146,7 +146,7 @@ This term is always zero under $(u_1,0)$ and $(0,u_2)$. At least some joint acti
 
 The first stage constructs capacity- and compute-matched comparisons among three model families:
 
-$$
+```math
 \begin{aligned}
 \text{Free:}\quad
 &\hat E(y,u)=m_\theta(y,u)-m_\theta(y,0),\\
@@ -155,25 +155,25 @@ $$
 \text{Correctable:}\quad
 &\hat E(y,u)=J_\theta(y)u+r_\theta(y,u).
 \end{aligned}
-$$
+```
 
 The minimal two-dimensional instance uses a quadratic correction:
 
-$$
+```math
 r_\theta(y,u)
 =H_{11,\theta}(y)u_1^2
 +H_{12,\theta}(y)u_1u_2
 +H_{22,\theta}(y)u_2^2.
-$$
+```
 
 The training objective is
 
-$$
+```math
 \mathcal L
 =
 \mathbb E\|\hat E(y,u)-E_y(u)\|^2
 +\lambda\,\mathbb E\|r_\theta(y,u)\|^2.
-$$
+```
 
 A small $\lambda$ encourages the model to use the shared low-order component first and introduce corrections when required by data.
 
@@ -181,13 +181,13 @@ A small $\lambda$ encourages the model to use the shared low-order component fir
 
 Write the two-dimensional quadratic action basis as
 
-$$
+```math
 \psi(u)
 =
 [u_1,u_2,u_1^2,u_1u_2,u_2^2]^\top,
 \qquad
 \hat E(y,u)=C_\theta(y)\psi(u).
-$$
+```
 
 Locally collected actions form a design matrix $\Psi=[\psi(u_1),\ldots,\psi(u_N)]^\top$. Its rank and condition number describe which coefficients are constrained by experience and provide direct criteria for later active action selection.
 
@@ -195,23 +195,23 @@ Locally collected actions form a design matrix $\Psi=[\psi(u_1),\ldots,\psi(u_N)
 
 Given current representation $y$ and local goal $g$, the controller selects
 
-$$
+```math
 u^*(y,g)
 =
 \arg\min_{u\in\mathcal U_\rho}
 d\big(y+\hat E(y,u),g\big)
 +\beta\|u\|^2,
-$$
+```
 
 then acts, observes again, and updates in closed loop.
 
 Primary measurements include effect NMSE on held-out action directions and magnitudes, one-step and closed-loop goal error, calibration under structural violation, and the number of real interactions needed to reach control error $\epsilon$:
 
-$$
+```math
 N_\epsilon
 =
 \min\{N:\operatorname{ControlError}(N)\le\epsilon\}.
-$$
+```
 
 ---
 
@@ -221,7 +221,7 @@ The current PyTorch implementation learns from a single continuous interaction t
 
 The computational pipeline is
 
-$$
+```math
 \text{continuous interaction}
 \rightarrow
 \text{local effect learning}
@@ -231,7 +231,7 @@ $$
 \text{goal-conditioned action selection}
 \rightarrow
 \text{residual / identifiability analysis}.
-$$
+```
 
 Code, complete per-seed results, and reproduction instructions are available in the project repository: [github.com/ERQIs/action-effect-structure](https://github.com/ERQIs/action-effect-structure). Implementation details appear in Appendix A.
 
@@ -375,9 +375,9 @@ Prediction is evaluated with mean squared error and normalized mean squared erro
 
 The second link has orientation $q_1+q_2$. When both joints execute small actions, its angular increment is $u_1+u_2$. The second-order expansion contains
 
-$$
+```math
 (u_1+u_2)^2=u_1^2+2u_1u_2+u_2^2.
-$$
+```
 
 The two axis directions are sufficient to constrain both columns of the first-order Jacobian but cannot reveal the second-order cross coefficient. This example connects local physical structure to input informativity and provides a minimal setting for actively selecting joint actions.
 
