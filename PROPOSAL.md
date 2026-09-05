@@ -210,7 +210,7 @@ Primary measurements include effect NMSE on held-out action directions and magni
 ```math
 N_\epsilon
 =
-\min\{N:\operatorname{ControlError}(N)\le\epsilon\}.
+\min\{N:\mathrm{ControlError}(N)\le\epsilon\}.
 ```
 
 ---
