@@ -7,7 +7,6 @@ This repository accompanies a research positioning paper on a simple question:
 The initial hypothesis is that short-horizon action effects contain a shared local first-order component together with learnable higher-order deviations. The repository contains the proposal and two deliberately small experiments that test this mechanism before moving to learned visual representations and real robots.
 
 - [Research proposal](PROPOSAL.md)
-- [Chinese working draft](PROPOSAL_ZH.md)
 
 ## Preliminary evidence
 
@@ -23,7 +22,6 @@ These experiments are mechanism checks in noiseless coordinate observations. The
 ```text
 .
 ├── PROPOSAL.md
-├── PROPOSAL_ZH.md
 ├── assets/
 │   └── preliminary_results_summary.png
 ├── experiments/
@@ -63,5 +61,4 @@ python run_experiments.py
 ```
 
 Each experiment can also be run independently from its own directory. The checked-in `results/` folders contain per-seed metrics, aggregate tables, JSON records, diagnostics, and learning curves.
-
 
